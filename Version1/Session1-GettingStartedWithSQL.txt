@@ -1,0 +1,120 @@
+SQL Session 1:
+
+==============================================
+
+What is a database ?
+
+A collection of data and holds this data in form of tables.
+
+What is table ?
+
+A entity Holds data in form of rows and columns.
+
+it is similar to excel spreadsheet.
+
+The database provide us the capability to access and manipulate the data.
+
+
+2 types of databases
+================================================
+
+1) Relational Database:
+
+Rows and columns and also the tables have relation between them.
+
+Ex: Mysql, SQL Server, Postgres, SQL Lite, Maria DB and others
+
+2) NOSQL database:
+
+Key value, Document, Graph.
+
+Ex: Hbase, MongoDB, Casandra and others.
+
+
+
+SQL : Structured Query Language and is used to query relational databases.
+
+Installation:
+
+goormIDE:  mysql-ctl cli;
+
+To list databases:
+================================
+show databases;
+
+Create database:
+=================================
+
+CREATE DATABASE trendytech;
+
+Drop database:
+
+=================================
+
+drop database trendytech;
+
+
+How do I know which database I am in currently:
+
+================================================
+
+SELECT database();
+
+Creating Table:
+
+=======================================
+
+CREATE TABLE employee
+(
+name VARCHAR(50),
+age INT,
+salary INT
+) ;
+
+
+To List tables:
+
+===============================
+
+show tables;
+
+Structure of Table:
+
+
+=====================================
+
+describe table name;
+
+desc tablename;
+
+Drop Table:
+
+======================================
+
+drop table table name;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+

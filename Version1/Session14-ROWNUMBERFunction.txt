@@ -1,0 +1,48 @@
+-------------------
+ROW NUMBER FUNCTION
+-------------------
+
+CREATE TABLE employee(
+    firstname varchar(20),
+    lastname varchar(20),
+    age int,
+    salary int,
+    location varchar(20)
+);
+
+INSERT INTO employee VALUES
+('Sachin', 'Sharma', 28, 10000, 'Bangalore'),
+('Shane', 'Warne', 30, 20000, 'Bangalore'),
+('Rohit', 'Sharma', 32, 30000, 'Hyderabad'),
+('Shikhar', 'Dhawan', 32, 25000, 'Hyderabad'),
+('Rahul', 'Dravid', 31, 20000, 'Banagalore'),
+('Saurabh', 'Ganguly', 32, 15000, 'Pune'),
+('Kapil', 'Dev', 34, 10000, 'Pune');
+
+=====================================
+SELECT firstname, lastname, salary, 
+row_number() as rownum OVER (ORDER BY salary DESC) FROM employee;
+
+** ROW_NUMBER() won't work without ORDER BY 
+
+-- Find the record having 5th highest salary
+
+SELECT * FROM (SELECT firstname, lastname, salary, 
+row_number() OVER (ORDER BY salary DESC) AS rownum FROM employee) temptable WHERE rownum = 5;
+
+-- Assign row number for partitions based on each location
+
+SELECT firstname, lastname, location, salary, row_number() OVER (PARTITION BY location ORDER BY salary DESC) FROM employee; 
+
+-- Find the candidate having highest salary from each location
+
+SELECT * FROM (SELECT firstname, lastname, location, salary, 
+row_number() OVER (PARTITION BY location ORDER BY salary DESC) AS rownum 
+FROM employee) temptable
+WHERE rownum = 1;
+
+===============================================================================
+** When we use ROW_NUMBER, we must use ORDER BY clause otherwise it won't work
+** When we use ROW_NUMBER, we may/may not use the PARTITION BY
+** The ROW_NUMBER starts from 1 for each partition
+** ROW_NUMBER will assign the number uniquely even though there are duplicate data in the records

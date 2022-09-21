@@ -1,0 +1,43 @@
+-----------------------------
+WHERE vs HAVING clause in SQL
+-----------------------------
+
+-- Find the source_of_joining through which more than 1 student has enrolled
+
+SELECT source_of_joining, COUNT(*) AS total from students GROUP BY source_of_joining WHERE total > 1;
+
+Error: ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'WHERE total > 1' at
+line 1
+
+** WHERE clause is used to filter the individual records before GROUP BY or aggregation.
+
+SELECT source_of_joining, COUNT(*) AS total from students GROUP BY source_of_joining HAVING total > 1;
+
+** HAVING clause is used to filter the records after GROUP BY or aggregation.
+
+--  Find the total number of students who have enrolled through linkedin as source_of_joining
+
+-- OPTIMISED QUERY (Filtering is happening before aggregation)
+SELECT source_of_joining, COUNT(*) AS total FROM students WHERE source_of_joining = 'linkedin' GROUP BY source_of_joining;
+
+or
+
+-- NON-OPTIMISEZ QUERY (Filtering is happening after aggregation)
+SELECT source_of_joining, COUNT(*) AS total FROM students GROUP BY source_of_joining HAVING source_of_joining = 'linkedin';
+
+------------------------------------------------------
+Can we use WHERE and HAVING clause in the same query ?
+------------------------------------------------------
+
+-- Find the locations from which more than 1 student has joined & the students years_of_exp is more than 5 years
+
+SELECT location, COUNT(*) AS total from students WHERE years_of_exp > 5 GROUP BY location HAVING total > 1;
+
+========================================================================
+** WHERE is used before GROUP BY and do filtering on individual records.
+
+** HAVING is used after GROUP BY and do filtering on aggregated records.
+
+** We can use WHERE and HAVING in the same query also.
+
+** WHERE is more performant than HAVING.

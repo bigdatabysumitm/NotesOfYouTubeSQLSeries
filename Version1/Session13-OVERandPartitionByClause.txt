@@ -1,0 +1,50 @@
+----------------------------
+OVER and PARTITION BY clause
+----------------------------
+
+-- From here we won't use goorm IDE, because that was using older versions of MySQL instead we will use https://onecompiler.com/mysql
+
+CREATE TABLE employee(
+    firstname varchar(20),
+    lastname varchar(20),
+    age int,
+    salary int,
+    location varchar(20)
+);
+
+INSERT INTO employee VALUES
+('Sachin', 'Sharma', 28, 10000, 'Bangalore'),
+('Rohit', 'Sharma', 30, 20000, 'Hyderabad'),
+('Virat', 'Kohli', 29, 30000, 'Chennai'),
+('Akshay', 'Kumar', 32, 40000, 'Banagalore'),
+('Sunil', 'Shetty', 34, 50000, 'Hyderabad'),
+('Mark', 'John', 34, 50000, 'Bangalore');
+
+-- How many people are from each location and average salary at each location
+
+-- Bangalore, 4, 19999 (Example)
+
+SELECT location, COUNT(location) AS total, AVG(salary) AS average from employee GROUP BY location;
+
+-- Fetch the firstname, latname and how many people are from each location and average salary at each location
+
+SELECT firstname, lastname, location, COUNT(location) AS total, AVG(salary) AS average from employee GROUP BY location;
+
+ERROR 1055 (42000) at line 19: Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'db_3ye8guejd.employee.firstname' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+
+-- We can try achieving it using a JOIN
+
+SELECT firstname, lastname, employee.location, total_count, avg_salary FROM employee JOIN 
+(SELECT location, COUNT(location) AS total_count, AVG(salary) AS avg_salary from employee GROUP BY location) temptable ON 
+employee.location = temptable.location;
+
+-- Is there any other way to perform above query?
+
+==> We can use OVER PARTITION BY to achieve this easily
+
+** PARTITION BY is useful while performing operations on Non-Aggregate columns
+
+SELECT firstname, lastname, location, 
+COUNT(location) OVER (PARTITION BY location) AS total, 
+AVG(salary) OVER (PARTITION BY location) AS average 
+FROM employee;

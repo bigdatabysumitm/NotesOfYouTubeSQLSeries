@@ -1,0 +1,315 @@
+SQL SESSION 4:
+======================================
+
+
+Primary Key
+
+Uniue Key
+
+Auto  increment
+
+CRUD Operations:
+
+Create    Insert
+
+Read      Select 
+
+Update    Update
+
+Delete    Delete
+
+
+CREATE TABLE employee (
+id INT,
+firstname varchar(20) NOT NULL,
+middlename varchar(20),
+lastname varchar(20) NOT NULL,
+age INT NOT NULL,
+salary INT NOT NULL,
+location varchar(20) NOT NULL DEFAULT 'BANGLORE',
+PRIMARY KEY(id)
+);
+
+
+Select
+===================
+
+1)  selecting all columns:
+
+select * from employee;
+
+2) Selecting specific columns.
+
+ select firstname,lastname from employee;
++-----------+----------+
+| firstname | lastname |
++-----------+----------+
+| rajesh    | kumar    |
+| satish    | kumar    |
+| rajesh    | kumar    |
++-----------+----------+
+
+3) How to see list whose age is greater than 25;
+
+Select by applying where clause.
+
+select * from employee where age > 25;
++----+-----------+------------+----------+-----+--------+----------+
+| id | firstname | middlename | lastname | age | salary | location |
++----+-----------+------------+----------+-----+--------+----------+
+|  1 | rajesh    | NULL       | kumar    |  29 |  10000 | BANGLORE |
+|  2 | satish    | NULL       | kumar    |  28 |  30000 | BANGLORE |
+|  3 | rajesh    | NULL       | kumar    |  29 |  10000 | BANGLORE |
++----+-----------+------------+----------+-----+--------+----------+
+
+4) Binary for case 
+
+By default it is case insensitive.
+
+select * from employee where binary firstname ='Rajesh';
+
+This stmt match exact case for case sensitive.
+
+Empty set (0.00 sec)
+
+mysql> select * from employee where firstname ='Rajesh';
++----+-----------+------------+----------+-----+--------+----------+
+| id | firstname | middlename | lastname | age | salary | location |
++----+-----------+------------+----------+-----+--------+----------+
+|  1 | rajesh    | NULL       | kumar    |  29 |  10000 | BANGLORE |
+
+
+5) 
+
+ Alias: Use As Keyword.
+
+select firstname as name,lastname as surname from employee;
++--------+---------+
+| name   | surname |
++--------+---------+
+| rajesh | kumar   |
+| satish | kumar   |
+| rajesh | kumar   |
++--------+---------+
+
+Update:
+================================
+
+
+update employee set lastname = 'sharma' where firstname = 'maneesh';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from employee;
++----+-----------+------------+----------+-----+--------+----------+
+| id | firstname | middlename | lastname | age | salary | location |
++----+-----------+------------+----------+-----+--------+----------+
+|  1 | rajesh    | NULL       | kumar    |  29 |  10000 | BANGLORE |
+|  2 | satish    | NULL       | kumar    |  28 |  30000 | BANGLORE |
+|  3 | maneesh   | NULL       | sharma   |  30 |  10000 | BANGLORE |
++----+-----------+------------+----------+-----+--------+----------+
+ 
+ 
+update employee set location = 'hyderabad' where firstname = 'satish';
+Query OK, 0 rows affected (0.01 sec)
+Rows matched: 1  Changed: 0  Warnings: 0
+
+mysql> select * from employee;
++----+-----------+------------+----------+-----+--------+-----------+
+| id | firstname | middlename | lastname | age | salary | location  |
++----+-----------+------------+----------+-----+--------+-----------+
+|  1 | rajesh    | NULL       | kumar    |  29 |  10000 | BANGLORE  |
+|  2 | satish    | NULL       | kumar    |  28 |  30000 | hyderabad |
+|  3 | maneesh   | NULL       | sharma   |  30 |  10000 | BANGLORE  |
++----+-----------+------------+----------+-----+--------+-----------+
+
+
+update employee set salary=salary+5000;
+Query OK, 3 rows affected (0.01 sec)
+Rows matched: 3  Changed: 3  Warnings: 0
+
+mysql> select * from employee;
++----+-----------+------------+----------+-----+--------+-----------+
+| id | firstname | middlename | lastname | age | salary | location  |
++----+-----------+------------+----------+-----+--------+-----------+
+|  1 | rajesh    | NULL       | kumar    |  29 |  15000 | BANGLORE  |
+|  2 | satish    | NULL       | kumar    |  28 |  35000 | hyderabad |
+|  3 | maneesh   | NULL       | sharma   |  30 |  15000 | BANGLORE  |
++----+-----------+------------+----------+-----+--------+-----------+
+
+update employee set location = 'banglore' where firstname ='satish' and lastname = 'kumar';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from employee;
++----+-----------+------------+----------+-----+--------+----------+
+| id | firstname | middlename | lastname | age | salary | location |
++----+-----------+------------+----------+-----+--------+----------+
+|  1 | rajesh    | NULL       | kumar    |  29 |  15000 | BANGLORE |
+|  2 | satish    | NULL       | kumar    |  28 |  35000 | banglore |
+|  3 | maneesh   | NULL       | sharma   |  30 |  15000 | BANGLORE |
++----+-----------+------------+----------+-----+--------+----------+
+
+
+DELETE:
+=========================================
+
+DELETE from employee where id = 3;
+Query OK, 1 row affected (0.02 sec)
+
+mysql> select * from employee;
++----+-----------+------------+----------+-----+--------+----------+
+| id | firstname | middlename | lastname | age | salary | location |
++----+-----------+------------+----------+-----+--------+----------+
+|  1 | rajesh    | NULL       | kumar    |  29 |  15000 | BANGLORE |
+|  2 | satish    | NULL       | kumar    |  28 |  35000 | banglore |
++----+-----------+------------+----------+-----+--------+----------+
+
+delete from employee;
+Query OK, 2 rows affected (0.08 sec)
+
+mysql> select * from employee;
+Empty set (0.00 sec)
+
+
+ALTER:
+
+================================
+
+
+Alter is to alter the structure of the table.
+
+alter table employee add column jobtitle varchar(50);
+
+
+alter table employee add column jobtitle varchar(50);
+
+
+Query OK, 0 rows affected (0.19 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC employee;
++------------+-------------+------+-----+----------+-------+
+| Field      | Type        | Null | Key | Default  | Extra |
++------------+-------------+------+-----+----------+-------+
+| id         | int(11)     | NO   | PRI | NULL     |       |
+| firstname  | varchar(20) | NO   |     | NULL     |       |
+| middlename | varchar(20) | YES  |     | NULL     |       |
+| lastname   | varchar(20) | NO   |     | NULL     |       |
+| age        | int(11)     | NO   |     | NULL     |       |
+| salary     | int(11)     | NO   |     | NULL     |       |
+| location   | varchar(20) | NO   |     | BANGLORE |       |
+| jobtitle   | varchar(50) | YES  |     | NULL     |       |
++------------+-------------+------+-----+----------+-------+
+
+alter table employee drop  column jobtitle ;
+
+alter table employee drop  column jobtitle ;
+Query OK, 0 rows affected (0.12 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC employee;
++------------+-------------+------+-----+----------+-------+
+| Field      | Type        | Null | Key | Default  | Extra |
++------------+-------------+------+-----+----------+-------+
+| id         | int(11)     | NO   | PRI | NULL     |       |
+| firstname  | varchar(20) | NO   |     | NULL     |       |
+| middlename | varchar(20) | YES  |     | NULL     |       |
+| lastname   | varchar(20) | NO   |     | NULL     |       |
+| age        | int(11)     | NO   |     | NULL     |       |
+| salary     | int(11)     | NO   |     | NULL     |       |
+| location   | varchar(20) | NO   |     | BANGLORE |       |
++------------+-------------+------+-----+----------+-------+
+
+
+alter table employee modify column firstname varchar(30);
+
+alter table employee modify column firstname varchar(30);
+Query OK, 0 rows affected (0.17 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC employee;
++------------+-------------+------+-----+----------+-------+
+| Field      | Type        | Null | Key | Default  | Extra |
++------------+-------------+------+-----+----------+-------+
+| id         | int(11)     | NO   | PRI | NULL     |       |
+| firstname  | varchar(30) | YES  |     | NULL     |       |
+| middlename | varchar(20) | YES  |     | NULL     |       |
+| lastname   | varchar(20) | NO   |     | NULL     |       |
+| age        | int(11)     | NO   |     | NULL     |       |
+| salary     | int(11)     | NO   |     | NULL     |       |
+| location   | varchar(20) | NO   |     | BANGLORE |       |
++------------+-------------+------+-----+----------+-------+
+
+
+alter table employee drop primary key;
+
+
+alter table employee drop primary key;
+Query OK, 0 rows affected (0.18 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC employee;
++------------+-------------+------+-----+----------+-------+
+| Field      | Type        | Null | Key | Default  | Extra |
++------------+-------------+------+-----+----------+-------+
+| id         | int(11)     | NO   |     | NULL     |       |
+| firstname  | varchar(30) | YES  |     | NULL     |       |
+| middlename | varchar(20) | YES  |     | NULL     |       |
+| lastname   | varchar(20) | NO   |     | NULL     |       |
+| age        | int(11)     | NO   |     | NULL     |       |
+| salary     | int(11)     | NO   |     | NULL     |       |
+| location   | varchar(20) | NO   |     | BANGLORE |       |
++------------+-------------+------+-----+----------+-------+
+
+
+alter table employee add primary key(id);
+
+
+alter table employee add primary key(id);
+Query OK, 0 rows affected (0.11 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC employee;
++------------+-------------+------+-----+----------+-------+
+| Field      | Type        | Null | Key | Default  | Extra |
++------------+-------------+------+-----+----------+-------+
+| id         | int(11)     | NO   | PRI | NULL     |       |
+| firstname  | varchar(30) | YES  |     | NULL     |       |
+| middlename | varchar(20) | YES  |     | NULL     |       |
+| lastname   | varchar(20) | NO   |     | NULL     |       |
+| age        | int(11)     | NO   |     | NULL     |       |
+| salary     | int(11)     | NO   |     | NULL     |       |
+| location   | varchar(20) | NO   |     | BANGLORE |       |
++------------+-------------+------+-----+----------+-------+
+
+
+DDL VS DML:
+
+==================================
+
+Data Definition Language:
+
+Deals with table structure.
+
+CREATE, ALTER, DROP are DDL commands.
+
+Data Manipulation Language:
+
+Deals with data directly.
+
+INSERT, UPDATE, DELETE are DML commands
+
+delete from table;
+
+Truncate also removes all records but it is DDL command.
+
+When you use delete it will delete the data one by one records
+
+When we use truncate it drops the table internally and recreate again.
+
+truncate is more effeciant than delete.
+
+
+
+

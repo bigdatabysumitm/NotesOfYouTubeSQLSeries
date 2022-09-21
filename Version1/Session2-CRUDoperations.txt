@@ -1,0 +1,143 @@
+Learn the SQL right way Session 2:
+==============================================
+
+CRUD Operations
+
+create  --- Insert statements
+read    --- select statements
+update  ---  update statements
+delete  ---- delete statements
+
+Creation of Table and Insert statements:
+
+=========================================
+
+employee table
+
+prefer to hire from bangalore location
+
+
+
+CREATE TABLE employee (
+firstname varchar(20),
+middlename varchar(20),
+lastname varchar(20),
+age INT,
+salary INT,
+location varchar(20)
+)
+
+describe employee;
+
+we are doing something with definition is called DDL
+
+show tables;
+
+select * from employee;
+
+inserting data into Table:
+=============================
+
+INSERT INTO employee(firstname, middlename, lastname, age, salary, location) VALUES ('satya','nara','yana',36,60000,'bangalore');
+
+
+INSERT INTO employee(firstname, middlename, lastname, age, salary, location) VALUES ('dhruvan','kumar','bhima',17,80000,'bangalore');
+
+How to insert data into only few columns:
+===============================================
+
+
+INSERT INTO employee(firstname,  lastname, age, salary, location) VALUES ('Rajesh','sharma',28,10000,'bangalore');
+
+INSERT INTO employee(firstname,  lastname, age, salary, location) VALUES ("Ritesh's",'sharma',28,10000,'bangalore');
+
+INSERT INTO employee(firstname,  lastname, age, salary, location) VALUES ('Ritesh\'s','sharma',28,10000,'bangalore');
+
+
+How to insert multiple values in one Go:
+
+=============================================================================
+
+INSERT INTO employee(firstname, middlename, lastname, age, salary, location) VALUES ('Kapil','Kumar','Sinha',28,10000,'bangalore'),('Satish','Kumar','Sinha',30,20000,'bangalore');
+
+Datatype Mismatch:
+======================================
+
+INSERT INTO employee(firstname, middlename, lastname, age, salary, location) VALUES ('Kapildddddddddddddddddddddddjjjjjjjj','Kumar','Sinha',28,10000,'bangalore');
+
+ERROR 1406 (22001): Data too long for column 'firstname' at row 1
+
+NULL
+=====================================
+
+
+INSERT INTO employee(firstname, lastname, age, salary) VALUES ('Kumar','Sinha',29,10000);
+
+Creating Table without NULL:
+
+====================================
+
+CREATE TABLE employee (
+firstname varchar(20) NOT NULL,
+middlename varchar(20),
+lastname varchar(20) NOT NULL,
+age INT NOT NULL,
+salary INT NOT NULL,
+location varchar(20) NOT NULL
+);
+
+INSERT INTO employee(middlename, lastname, age, salary, location) VALUES ('Kumar','Sinha',29,10000,'ba
+ngalore');
+ERROR 1364 (HY000): Field 'firstname' doesn't have a default value.
+
+Default Values:
+
+==================================
+
+CREATE TABLE employee (
+firstname varchar(20) NOT NULL,
+middlename varchar(20),
+lastname varchar(20) NOT NULL,
+age INT NOT NULL,
+salary INT NOT NULL,
+location varchar(20) DEFAULT 'BANGLORE'
+);
+
+
+INSERT INTO employee(firstname, lastname, age, salary, location) VALUES ('satish','kumar',29,10000,'hyderabad');
+
+
+INSERT INTO employee(firstname, lastname, age, salary, location) VALUES ('rajesh','kumar',29,10000,null);
+
+
+
+Combination of NOT NOT and DEFAULT
+
+=========================================
+CREATE TABLE employee (
+firstname varchar(20) NOT NULL,
+middlename varchar(20),
+lastname varchar(20) NOT NULL,
+age INT NOT NULL,
+salary INT NOT NULL,
+location varchar(20) NOT NULL DEFAULT 'BANGLORE'
+);
+
+ INSERT INTO employee(firstname, lastname, age, salary) VALUES ('rajesh','kumar',29,10000);
+l);
+ERROR 1048 (23000): Column 'location' cannot be null
+
+INSERT INTO employee(firstname, lastname, age, salary) VALUES ('rajesh','kumar',29,10000);
+
+
+
+
+
+
+
+
+
+
+
+
+
