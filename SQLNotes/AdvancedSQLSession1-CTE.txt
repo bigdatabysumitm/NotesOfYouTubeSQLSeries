@@ -1,0 +1,130 @@
+
+Common table expression (CTE)
+==============================
+
+this is to simplify the complex queries.
+
+it improves the readability of a query
+
+Orders table
+=============
+
+order_id, order_data, order_customer_id, order_status
+
+total orders each customer has placed
+
+I want to find out premium customers (who places more orders)
+
+
+average number of numbers placed by each customer
+
+Solution 1 (subquery)
+======================
+
+select avg(total_orders_per_customer) as avg_orders_per_customer from (
+select order_customer_id, count(*) as total_orders_per_customer from orders group by order_customer_id) x
+
+
+Solution 2 (CTE/WITH CLAUSE)
+============================
+
+WITH total_orders (order_customer_id,total_orders_per_customer) as
+(select order_customer_id, count(*) as total_orders_per_customer from orders group by order_customer_id)
+
+select avg(total_orders_per_customer) as avg_orders_per_customer from total_orders
+
+subquery
+==========
+query3(query2(query1))
+
+CTE
+====
+query1
+
+query2
+
+query3
+
+
+I want to find premium customers who places more orders than the average number of orders
+===================
+
+select * from (select order_customer_id, count(*) as total_orders_per_customer from orders group by order_customer_id) total_orders join(select avg(total_orders_per_customer) as avg_orders_per_customer from (
+select order_customer_id, count(*) as total_orders_per_customer from orders group by order_customer_id) x) average_orders on total_orders.total_orders_per_customer > average_orders.avg_orders_per_customer
+
+
+3 step process
+===============
+1. calculate total orders per customer
+2. calculate average number of number orders for the customers
+3. get to know the customers who are premium
+
+WITH total_orders(order_customer_id, total_orders_per_customer) as
+(select order_customer_id, count(*) as total_orders_per_customer from orders group by order_customer_id),
+average_orders(avg_orders_per_customer) as
+(select avg(total_orders_per_customer) as avg_orders_per_customer from total_orders)
+select * from orders;
+select * from total_orders join average_orders on total_orders.total_orders_per_customer  >  average_orders.avg_orders_per_customer;
+
+
+CTE defines a temporary resultset that you can refer in select, insert, update, delete statements immedicate follows the CTE
+
+
+
+WITH total_orders(order_customer_id, order_customer_id1, total_orders_per_customer) as
+(select order_customer_id, order_customer_id, count(*) as total_orders_per_customer from orders group by order_customer_id),
+average_orders(avg_orders_per_customer) as
+(select avg(total_orders_per_customer) as avg_orders_per_customer from total_orders)
+select * from total_orders join average_orders on total_orders.total_orders_per_customer  >  average_orders.avg_orders_per_customer;
+
+
+====================
+
+
+CTE can improve the performance by not always
+
+
+
+PostgreSQL
+===========
+
+before version 12
+
+select  * from orders where order_id = 10000;
+
+with orders_cte as 
+(
+select * from orders
+)
+select * from orders_cte where order_id = 10000;
+
+on CTE the indexes are not performant
+
+before version 12 in postgreSQL
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
