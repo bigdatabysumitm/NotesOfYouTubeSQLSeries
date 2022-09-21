@@ -1,0 +1,80 @@
+Session 7:
+
+=============================
+
+select distinct source_of_joing from students order by enrollment_date desc;
+
+Distinct and Order By in the same Query.
+
+
+case 1:
+
+select source_of_joing from students
+
+Order of execution:
+=============================
+
+1) From (Loading the Table)
+
+2) Select (Projecting source_of_joining)
+
+case 2:
+
+select source_of_joing, enrollment_date from students.
+
+Order of execution:
+=============================
+
+1) From (Loading the Table)
+
+2) Select (Projecting source_of_joining and source_of_joining)
+
+case 3:
+
+select source_of_joing, enrollment_date from students order by enrollment_date;
+
+Order of execution:
+=============================
+
+1) From (Loading the Table)
+
+2) Select (Projecting source_of_joining and source_of_joining)
+
+3) Order By (based on enrollment_date it will order by)
+
+
+case 4:
+
+select source_of_joing from students order by enrollment_date;
+
+
+Order of execution:
+=============================
+
+1) From (Loading the Table)
+
+2) Select (Projecting source_of_joining , enrollment_date)
+
+3) Order By (based on enrollment_date it will order by)
+
+
+
+case 5:
+
+select distinct source_of_joining from students order by enrollment_date;
+
+Order of execution:
+=============================
+
+1) From (Loading the Table)
+
+2) Select (Projecting source_of_joining , enrollment_date)
+
+select source_of_joining,enrollment_date from students;
+
+3) distinct 
+
+select distinct source_of_joining,enrollment_date from students;
+
+3) Order By (based on enrollment_date it will order by)
+

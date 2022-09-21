@@ -1,0 +1,116 @@
+-----
+JOINS
+-----
+
+-- Find the course in which students are enrolled
+SELECT student_fname, student_lname, selected_course, course_name FROM students s 
+JOIN courses c ON s.selected_course = c.course_id;
+
+** By default, it is a INNER JOIN
+
+** INNER JOIN : only the matching records will be considered and non-matching records will be discarded
+
+---------------
+LEFT OUTER JOIN
+---------------
+
+*** All the matching records from left and right table are considered + 
+   All the non matching records in the left table which does not have the match in the right padded with NULL
+
+** For LEFT OUTER JOIN to happen, we must have some extra records in the left table(T1) 
+
+** T1(Left Table) X T2(Right Table)
+
+-- Delete the course having course_id = 2 
+
+DELETE FROM courses WHERE course_id = 2;
+
+Error: ERROR 1451 (23000): Cannot delete or update a parent row: a foreign key constraint fails (`trendytech`.`students`, CONSTRAINT `students_ibfk_1` FOREIGN KEY (`selected_course`) REFER
+ENCES `courses` (`course_id`))
+
+* The above DELETE query won't work because it is attached with the students table also in the form of FOREIGN KEY
+
+* If we try to delete the course having course_id = 2, then the student who has enrolled for course_id = 2 will become obsolete
+
+-- Now, we will create a new students table and new couses table with same data but FOREIGN key constraint won't be there
+
+CREATE TABLE students_latest AS SELECT * FROM students;
+CREATE TABLE courses_latest AS SELECT * FROM courses;
+
+-- Now, we can delete the records from courses table
+
+-- Delete the course having course_id = 2 
+
+DELETE FROM courses_latest WHERE course_id = 2;
+
+-- What will happen if we perform INNER JOIN on the above created table
+
+-- Find the course in which students are enrolled
+SELECT student_fname, student_lname, selected_course, course_name FROM students_latest s 
+JOIN courses_latest c ON s.selected_course = c.course_id;
+
+-- Now, lets perform a LEFT OUTER JOIN
+
+** How to perform a LEFT OUTER JOIN?
+==> We just have to give the keyword LEFT before JOIN
+
+-- Find the course in which students are enrolled
+SELECT student_fname, student_lname, selected_course, course_name FROM students_latest s 
+LEFT JOIN courses_latest c ON s.selected_course = c.course_id;
+
+----------------
+RIGHT OUTER JOIN
+----------------
+
+*** All the matching records from left and right table are considered + 
+   All the non matching records in the right table which does not have the match in the left padded with NULL
+
+** For RIGHT OUTER JOIN to happen, we must have some extra records in the right table(T2) 
+
+** T1(Left Table) X T2(Right Table)
+** How to perform a RIGHT OUTER JOIN?
+==> We just have to give the keyword RIGHT before JOIN
+
+-- Find the course in which students are enrolled
+SELECT student_fname, student_lname, selected_course, course_name FROM students_latest s 
+RIGHT JOIN courses_latest c ON s.selected_course = c.course_id;
+
+---------------
+FULL OUTER JOIN
+---------------
+
+* Combination of LEFT OUTER JOIN and RIGHT OUTER JOIN.
+
+* FULL OUTER JOIN = LEFT OUTER JOIN UNION RIGHT OUTER JOIN
+
+* All the matching records + Non-matching records from left + Non-matching records from right
+
+* In SQL, we do not have keyword FULL for FULL OUTER JOIN, so we will do UNION of LEFT OUTER JOIN and RIGHT OUTER JOIN
+
+SELECT student_fname, student_lname, selected_course, course_name FROM students_latest s 
+LEFT JOIN courses_latest c ON s.selected_course = c.course_id
+UNION
+SELECT student_fname, student_lname, selected_course, course_name FROM students_latest s 
+RIGHT JOIN courses_latest c ON s.selected_course = c.course_id;
+
+----------
+CROSS JOIN
+----------
+* CROSS JOIN is costly as each record of first table is getting combined with each record of second table.
+
+If Left Table (T1) has 4 records 
+If Right Table (T2) has 5 records
+
+Then, CROSS JOIN = 4 * 5 = 20 records, 1 to 1 mapping with each records
+
+SELECT COUNT(*) FROM students, courses; 
+-- 35 records
+
+SELECT COUNT(*) FROM students JOIN courses;
+-- 35 records
+
+SELECT COUNT(*) FROM students;
+-- 7 records
+
+SELECT COUNT(*) FROM courses;
+-- 5 records

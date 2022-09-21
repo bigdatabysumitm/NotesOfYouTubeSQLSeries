@@ -1,0 +1,337 @@
+Session 6:
+
+=================================
+
+Distinct
+
+ORDER BY
+
+Limit
+
+Like
+
+Distinct:
+
+===============================
+
+
+mysql> select distinct(location) from students;
++-----------+
+| location  |
++-----------+
+| bangalore |
+| chennai   |
+| pune      |
++-----------+
+3 rows in set (0.00 sec)
+
+
+select distinct(student_company) from students;
++-----------------+
+| student_company |
++-----------------+
+| walmart         |
+| microsoft       |
+| tcs             |
+| wipro           |
++-----------------+
+
+
+select distinct(source_of_joining) from students;
+
+
+select distinct(source_of_joining) from students;
++-------------------+
+| source_of_joining |
++-------------------+
+| linkedin          |
+| quora             |
+| friend            |
+| youtube           |
+| google            |
++-------------------+
+
+ORDER BY:
+
+====================================
+
+select student_id,enrollment_date,student_fname,student_email,years_of_exp,student_company,batch_date,source_of_joining,location from students o
+rder by years_of_exp;;
++------------+---------------------+---------------+-------------------+--------------+-----------------+------------+-------------------+-----------+
+| student_id | enrollment_date     | student_fname | student_email     | years_of_exp | student_company | batch_date | source_of_joining | location  |
++------------+---------------------+---------------+-------------------+--------------+-----------------+------------+-------------------+-----------+
+|          1 | 2022-07-09 00:03:08 | rohit         | rohit@gmail.com   |            6 | walmart         | 05-02-2021 | linkedin          | bangalore |
+|          2 | 2022-07-09 00:03:08 | rahul         | rahul@gmail.com   |            8 | walmart         | 19-02-2021 | quora             | chennai   |
+|          6 | 2022-07-09 00:03:09 | saurabh       | saurabh@gmail.com |           14 | wipro           | 19-02-2021 | google            | chennai   |
+|          3 | 2022-07-09 00:03:09 | kapil         | kapil@gmail.com   |           15 | microsoft       | 05-02-2021 | friend            | pune      |
+|          4 | 2022-07-09 00:03:09 | brain         | brain@gmail.com   |           18 | tcs             | 05-02-2021 | youtube           | pune      |
+|          5 | 2022-07-09 00:03:09 | carl          | carl@gmail.com    |           20 | wipro           | 19-02-2021 | youtube           | pune      |
++------------+---------------------+---------------+-------------------+--------------+-----------------+------------+-------------------+-----------+
+
+
+
+select student_id,enrollment_date,student_fname,student_email,years_of_exp,student_company,batch_date,source_of_joining,location from students o
+rder by years_of_exp desc;
++------------+---------------------+---------------+-------------------+--------------+-----------------+------------+-------------------+-----------+
+| student_id | enrollment_date     | student_fname | student_email     | years_of_exp | student_company | batch_date | source_of_joining | location  |
++------------+---------------------+---------------+-------------------+--------------+-----------------+------------+-------------------+-----------+
+|          5 | 2022-07-09 00:03:09 | carl          | carl@gmail.com    |           20 | wipro           | 19-02-2021 | youtube           | pune      |
+|          4 | 2022-07-09 00:03:09 | brain         | brain@gmail.com   |           18 | tcs             | 05-02-2021 | youtube           | pune      |
+|          3 | 2022-07-09 00:03:09 | kapil         | kapil@gmail.com   |           15 | microsoft       | 05-02-2021 | friend            | pune      |
+|          6 | 2022-07-09 00:03:09 | saurabh       | saurabh@gmail.com |           14 | wipro           | 19-02-2021 | google            | chennai   |
+|          2 | 2022-07-09 00:03:08 | rahul         | rahul@gmail.com   |            8 | walmart         | 19-02-2021 | quora             | chennai   |
+|          1 | 2022-07-09 00:03:08 | rohit         | rohit@gmail.com   |            6 | walmart         | 05-02-2021 | linkedin          | bangalore |
++------------+---------------------+---------------+-------------------+--------------+-----------------+------------+-------------------+-----------+
+
+
+select student_fname from students order by years_of_exp;
++---------------+
+| student_fname |
++---------------+
+| rohit         |
+| rahul         |
+| saurabh       |
+| kapil         |
+| brain         |
+| carl          |
++---------------+
+
+select student_fname,years_of_exp  from students order by years_of_exp;
++---------------+--------------+
+| student_fname | years_of_exp |
++---------------+--------------+
+| rohit         |            6 |
+| rahul         |            8 |
+| saurabh       |           14 |
+| kapil         |           15 |
+| brain         |           18 |
+| carl          |           20 |
++---------------+--------------+
+
+select student_fname,years_of_exp  from students order by years_of_exp desc;
++---------------+--------------+
+| student_fname | years_of_exp |
++---------------+--------------+
+| carl          |           20 |
+| brain         |           18 |
+| kapil         |           15 |
+| saurabh       |           14 |
+| rahul         |            8 |
+| rohit         |            6 |
++---------------+--------------+
+
+
+select student_fname,years_of_exp  from students order by 2 ;
++---------------+--------------+
+| student_fname | years_of_exp |
++---------------+--------------+
+| rohit         |            6 |
+| rahul         |            8 |
+| saurabh       |           14 |
+| kapil         |           15 |
+| brain         |           18 |
+| carl          |           20 |
++---------------+--------------+
+6 rows in set (0.00 sec)
+
+mysql> select student_fname,years_of_exp  from students order by 1;
++---------------+--------------+
+| student_fname | years_of_exp |
++---------------+--------------+
+| brain         |           18 |
+| carl          |           20 |
+| kapil         |           15 |
+| rahul         |            8 |
+| rohit         |            6 |
+| saurabh       |           14 |
++---------------+--------------+
+
+
+select student_fname,years_of_exp  from students order by 1 desc;
++---------------+--------------+
+| student_fname | years_of_exp |
++---------------+--------------+
+| saurabh       |           14 |
+| rohit         |            6 |
+| rahul         |            8 |
+| kapil         |           15 |
+| carl          |           20 |
+| brain         |           18 |
++---------------+--------------+
+
+
+
+select student_fname,years_of_exp  from students order by years_of_exp,student_fname;
++---------------+--------------+
+| student_fname | years_of_exp |
++---------------+--------------+
+| rohit         |            6 |
+| rahul         |            8 |
+| saurabh       |           14 |
+| kapil         |           15 |
+| brain         |           18 |
+| carl          |           20 |
++---------------+--------------+
+
+
+LIMIT:
+
+==============================================
+
+select student_id,enrollment_date,student_fname,student_email,years_of_exp,student_company,batch_date,source_of_joining,location from students o
+rder by years_of_exp limit 3;
++------------+---------------------+---------------+-------------------+--------------+-----------------+------------+-------------------+-----------+
+| student_id | enrollment_date     | student_fname | student_email     | years_of_exp | student_company | batch_date | source_of_joining | location  |
++------------+---------------------+---------------+-------------------+--------------+-----------------+------------+-------------------+-----------+
+|          1 | 2022-07-09 00:03:08 | rohit         | rohit@gmail.com   |            6 | walmart         | 05-02-2021 | linkedin          | bangalore |
+|          2 | 2022-07-09 00:03:08 | rahul         | rahul@gmail.com   |            8 | walmart         | 19-02-2021 | quora             | chennai   |
+|          6 | 2022-07-09 00:03:09 | saurabh       | saurabh@gmail.com |           14 | wipro           | 19-02-2021 | google            | chennai   |
++------------+---------------------+---------------+-------------------+--------------+-----------------+------------+-------------------+-----------+
+
+select student_id,enrollment_date,student_fname,student_email,years_of_exp,student_company,batch_date,source_of_joining,location from students o
+rder by years_of_exp desc limit 3;;
++------------+---------------------+---------------+-----------------+--------------+-----------------+------------+-------------------+----------+
+| student_id | enrollment_date     | student_fname | student_email   | years_of_exp | student_company | batch_date | source_of_joining | location |
++------------+---------------------+---------------+-----------------+--------------+-----------------+------------+-------------------+----------+
+|          5 | 2022-07-09 00:03:09 | carl          | carl@gmail.com  |           20 | wipro           | 19-02-2021 | youtube           | pune     |
+|          4 | 2022-07-09 00:03:09 | brain         | brain@gmail.com |           18 | tcs             | 05-02-2021 | youtube           | pune     |
+|          3 | 2022-07-09 00:03:09 | kapil         | kapil@gmail.com |           15 | microsoft       | 05-02-2021 | friend            | pune     |
++------------+---------------------+---------------+-----------------+--------------+-----------------+------------+-------------------+----------+
+3 rows in set (0.00 sec)
+
+Want to know which sources last 5 candidates have enrolled.
+
+
+select source_of_joining from students order by enrollment_date desc limit 5;
++-------------------+
+| source_of_joining |
++-------------------+
+| friend            |
+| youtube           |
+| youtube           |
+| google            |
+| linkedin          |
+
+select student_id,enrollment_date,student_fname,student_email,years_of_exp,student_company,batch_date,source_of_joining,location from students o
+rder by enrollment_date desc limit 1;
++------------+---------------------+---------------+-------------------+--------------+-----------------+------------+-------------------+----------+
+| student_id | enrollment_date     | student_fname | student_email     | years_of_exp | student_company | batch_date | source_of_joining | location |
++------------+---------------------+---------------+-------------------+--------------+-----------------+------------+-------------------+----------+
+|          6 | 2022-07-09 00:03:09 | saurabh       | saurabh@gmail.com |           14 | wipro           | 19-02-2021 | google            | chennai  |
++------------+---------------------+---------------+-------------------+--------------+-----------------+------------+-------------------+----------+
+
+
+ select * from students order by enrollment_date desc limit 0, 3;
++------------+---------------+---------------+---------------+-------------------+--------------+-------------------------+---------------------+------
+-----------+--------------+-----------------+------------+-------------------+----------+
+| student_id | student_fname | student_lname | student_mname | student_email     | sudent_phone | student_alternate_phone | enrollment_date     | selec
+ted_course | years_of_exp | student_company | batch_date | source_of_joining | location |
++------------+---------------+---------------+---------------+-------------------+--------------+-------------------------+---------------------+------
+-----------+--------------+-----------------+------------+-------------------+----------+
+|          6 | saurabh       | ganguly       | NULL          | saurabh@gmail.com | 9291975191   | NULL                    | 2022-07-09 00:03:09 |
+         3 |           14 | wipro           | 19-02-2021 | google            | chennai  |
+|          5 | carl          | hooper        | NULL          | carl@gmail.com    | 9293519191   | NULL                    | 2022-07-09 00:03:09 |
+         1 |           20 | wipro           | 19-02-2021 | youtube           | pune     |
+|          3 | kapil         | dev           | NULL          | kapil@gmail.com   | 9294919191   | NULL                    | 2022-07-09 00:03:09 |
+         4 |           15 | microsoft       | 05-02-2021 | friend            | pune     |
++------------+---------------+---------------+---------------+-------------------+--------------+-------------------------+---------------------+------
+-----------+--------------+-----------------+------------+-------------------+----------+
+3 rows in set (0.00 sec)
+
+mysql> select * from students order by enrollment_date desc limit 3,2;
++------------+---------------+---------------+---------------+-------------------+--------------+-------------------------+---------------------+------
+-----------+--------------+-----------------+------------+-------------------+-----------+
+| student_id | student_fname | student_lname | student_mname | student_email     | sudent_phone | student_alternate_phone | enrollment_date     | selec
+ted_course | years_of_exp | student_company | batch_date | source_of_joining | location  |
++------------+---------------+---------------+---------------+-------------------+--------------+-------------------------+---------------------+------
+-----------+--------------+-----------------+------------+-------------------+-----------+
+|          6 | saurabh       | ganguly       | NULL          | saurabh@gmail.com | 9291975191   | NULL                    | 2022-07-09 00:03:09 |
+         3 |           14 | wipro           | 19-02-2021 | google            | chennai   |
+|          1 | rohit         | sharma        | NULL          | rohit@gmail.com   | 9191919191   | NULL                    | 2022-07-09 00:03:08 |
+         3 |            6 | walmart         | 05-02-2021 | linkedin          | bangalore |
++------------+---------------+---------------+---------------+-------------------+--------------+-------------------------+---------------------+------
+-----------+--------------+-----------------+------------+-------------------+-----------+
+2 rows in set (0.00 sec)
+
+
+LIKE:
+
+=============================================
+
+
+select student_id,enrollment_date,student_fname,student_email,years_of_exp,student_company,batch_date,source_of_joining,location from students w
+here student_fname like '%ra%';
++------------+---------------------+---------------+-------------------+--------------+-----------------+------------+-------------------+----------+
+| student_id | enrollment_date     | student_fname | student_email     | years_of_exp | student_company | batch_date | source_of_joining | location |
++------------+---------------------+---------------+-------------------+--------------+-----------------+------------+-------------------+----------+
+|          2 | 2022-07-09 00:03:08 | rahul         | rahul@gmail.com   |            8 | walmart         | 19-02-2021 | quora             | chennai  |
+|          4 | 2022-07-09 00:03:09 | brain         | brain@gmail.com   |           18 | tcs             | 05-02-2021 | youtube           | pune     |
+|          6 | 2022-07-09 00:03:09 | saurabh       | saurabh@gmail.com |           14 | wipro           | 19-02-2021 | google            | chennai  |
++------------+---------------------+---------------+-------------------+--------------+-----------------+------------+-------------------+----------+
+
+
+ select student_id,enrollment_date,student_fname,student_email,years_of_exp,student_company,batch_date,source_of_joining,location from students w
+here student_fname like 'ra%';
++------------+---------------------+---------------+-----------------+--------------+-----------------+------------+-------------------+----------+
+| student_id | enrollment_date     | student_fname | student_email   | years_of_exp | student_company | batch_date | source_of_joining | location |
++------------+---------------------+---------------+-----------------+--------------+-----------------+------------+-------------------+----------+
+|          2 | 2022-07-09 00:03:08 | rahul         | rahul@gmail.com |            8 | walmart         | 19-02-2021 | quora             | chennai  |
++------------+---------------------+---------------+-----------------+--------------+-----------------+------------+-------------------+----------+
+1 row in set (0.00 sec)
+
+select student_id,enrollment_date,student_fname,student_email,years_of_exp,student_company,batch_date,source_of_joining,location from students w
+here student_fname like '%it';
++------------+---------------------+---------------+-----------------+--------------+-----------------+------------+-------------------+-----------+
+| student_id | enrollment_date     | student_fname | student_email   | years_of_exp | student_company | batch_date | source_of_joining | location  |
++------------+---------------------+---------------+-----------------+--------------+-----------------+------------+-------------------+-----------+
+|          1 | 2022-07-09 00:03:08 | rohit         | rohit@gmail.com |            6 | walmart         | 05-02-2021 | linkedin          | bangalore |
++------------+---------------------+---------------+-----------------+--------------+-----------------+------------+-------------------+-----------+
+1 row in set (0.00 sec)
+
+
+select student_id,enrollment_date,student_fname,student_email,years_of_exp,student_company,batch_date,source_of_joining,location from students w
+here student_fname like '_____';
++------------+---------------------+---------------+-----------------+--------------+-----------------+------------+-------------------+-----------+
+| student_id | enrollment_date     | student_fname | student_email   | years_of_exp | student_company | batch_date | source_of_joining | location  |
++------------+---------------------+---------------+-----------------+--------------+-----------------+------------+-------------------+-----------+
+|          1 | 2022-07-09 00:03:08 | rohit         | rohit@gmail.com |            6 | walmart         | 05-02-2021 | linkedin          | bangalore |
+|          2 | 2022-07-09 00:03:08 | rahul         | rahul@gmail.com |            8 | walmart         | 19-02-2021 | quora             | chennai   |
+|          3 | 2022-07-09 00:03:09 | kapil         | kapil@gmail.com |           15 | microsoft       | 05-02-2021 | friend            | pune      |
+|          4 | 2022-07-09 00:03:09 | brain         | brain@gmail.com |           18 | tcs             | 05-02-2021 | youtube           | pune      |
++------------+---------------------+---------------+-----------------+--------------+-----------------+------------+-------------------+-----------+
+
+ select student_id,enrollment_date,student_fname,student_email,years_of_exp,student_company,batch_date,source_of_joining,location from students w
+here student_fname like '____';
++------------+---------------------+---------------+----------------+--------------+-----------------+------------+-------------------+----------+
+| student_id | enrollment_date     | student_fname | student_email  | years_of_exp | student_company | batch_date | source_of_joining | location |
++------------+---------------------+---------------+----------------+--------------+-----------------+------------+-------------------+----------+
+|          5 | 2022-07-09 00:03:09 | carl          | carl@gmail.com |           20 | wipro           | 19-02-2021 | youtube           | pune     |
++------------+---------------------+---------------+----------------+--------------+-----------------+------------+-------------------+----------+
+
+% and _ are wild card characters.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

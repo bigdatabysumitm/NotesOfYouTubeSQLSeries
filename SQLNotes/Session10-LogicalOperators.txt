@@ -1,0 +1,121 @@
+Session 10:
+========================
+
+select * from students where location = 'bangalore';
+
+To Get people who are not from bangalore:
+
+
+select * from students where location != 'bangalore';
+
+
+seelct * from courses;
+
+get all the courses which has word data.
+
+select * from courses where course_name like "%data%";
+
+
+select * from courses where course_name like "%data%";
++-----------+-------------+---------------------------+------------+
+| course_id | course_name | course_duration_in_months | course_fee |
++-----------+-------------+---------------------------+------------+
+|         1 | bigdata     |                         6 |      40000 |
+|         3 | datascience |                         6 |      50000 |
+|         5 | database    |                         4 |       3000 |
++-----------+-------------+---------------------------+------------+
+
+
+get all courses which do not have the word keyword:
+
+
+select * from courses where course_name not like "%data%";
+
+
+select * from courses where course_name not like "%data%";
++-----------+----------------+---------------------------+------------+
+| course_id | course_name    | course_duration_in_months | course_fee |
++-----------+----------------+---------------------------+------------+
+|         2 | webdevelopment |                         3 |      20000 |
+|         4 | devops         |                         1 |      10000 |
++-----------+----------------+---------------------------+------------+
+
+
+All students from bangalore who joined through linked in and having less than 8 years of exp;
+
+select * from students where years_of_exp < 8 and and source_of_joining = 'linkedin' and location='bangalore';
+
+
+I want all people who do not fall between 8 to 12 years of exp;
+
+select * from students where years_of_exp<8 or years_of_exp>12;
+
+select * from students where years_of_exp not between 8 and 12;
+
+
+List of students for flipkart walmart or microsoft
+
+select * from students where student_company in ('flipkart','walmart','microsoft');
+
+select * from students where student_company not in ('flipkart','walmart','microsoft');
+
+
+If course more than 4 months we categorize as Master's program else diploma program.
+
+
+
+
+
+select course_id,course_name,course_fee,
+CASE
+    WHEN course_duration_in_months > 4 THEN 'masters'
+	ELSE 'diploma'
+END as course_type from courses;
+
+
+
+select course_id,course_name,course_fee,
+    -> CASE
+    ->     WHEN course_duration_in_months > 4 THEN 'masters'
+    -> ELSE 'diploma'
+    -> END as course_type from courses;
++-----------+----------------+------------+-------------+
+| course_id | course_name    | course_fee | course_type |
++-----------+----------------+------------+-------------+
+|         1 | bigdata        |      40000 | masters     |
+|         2 | webdevelopment |      20000 | diploma     |
+|         3 | datascience    |      50000 | masters     |
+|         4 | devops         |      10000 | diploma     |
+|         5 | database       |       3000 | diploma     |
++-----------+----------------+------------+-------------+
+
+
+People working for walmart , flipkar and microsoft we want to say product based else sevrice based
+
+
+select student_id,student_fname,student_lname,student_company,
+CASE
+    WHEN student_company in ('flipkart','walmart','microsoft') THEN 'product based'
+	ELSE 'service based'
+END as company_type from students;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

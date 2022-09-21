@@ -1,0 +1,79 @@
+Session 9:
+===============================================
+
+create table courses_new(
+course_id int AUTO_INCREMENT,
+course_name varchar(30) NOT NULL,
+course_duration_months decimal(3,1) NOT NULL,
+course_fee int NOT NULL,
+PRIMARY KEY(course_id)
+);
+
+insert into courses_new(course_name,course_duration_months,course_fee) values('bigdata', 6.5, 50000),('webdevelopment', 3.5, 20000),('datascience', 6, 40000),;
+
+insert into courses_new(course_name,course_duration_months,course_fee) values('devops', 10.5, 30000);
+
+update courses_new set course_fee = 40000 where course_id = 2;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from courses_new;
++-----------+----------------+------------------------+------------+
+| course_id | course_name    | course_duration_months | course_fee |
++-----------+----------------+------------------------+------------+
+|         1 | bigdata        |                    6.5 |      50000 |
+|         2 | webdevelopment |                    3.5 |      40000 |
+|         3 | datascience    |                    6.0 |      40000 |
++-----------+----------------+------------------------+------------+
+3 rows in set (0.00 sec)
+
+create table courses_new(
+course_id int AUTO_INCREMENT,
+course_name varchar(30) NOT NULL,
+course_duration_months decimal(3,1) NOT NULL,
+course_fee int NOT NULL,
+changed_at TIMESTAMP DEFAULT NOW(),
+PRIMARY KEY(course_id)
+);
+
+mysql> update courses_new set course_duration_months = 4.5 where course_id = 3;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from courses_new;
++-----------+----------------+------------------------+------------+---------------------+
+| course_id | course_name    | course_duration_months | course_fee | changed_at          |
++-----------+----------------+------------------------+------------+---------------------+
+|         1 | bigdata        |                    6.5 |      50000 | 2022-07-11 00:01:52 |
+|         2 | webdevelopment |                    3.5 |      20000 | 2022-07-11 00:01:52 |
+|         3 | datascience    |                    4.5 |      40000 | 2022-07-11 00:01:52 |
++-----------+----------------+------------------------+------------+---------------------+
+3 rows in set (0.00 sec)
+
+create table courses_new(
+course_id int AUTO_INCREMENT,
+course_name varchar(30) NOT NULL,
+course_duration_months decimal(3,1) NOT NULL,
+course_fee int NOT NULL,
+changed_at TIMESTAMP DEFAULT NOW() ON UPDATE CURRENT_TIMESTAMP(),
+PRIMARY KEY(course_id)
+);
+
+update courses_new set course_fee = 40000 where course_id = 2;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from courses_new;
++-----------+----------------+------------------------+------------+---------------------+
+| course_id | course_name    | course_duration_months | course_fee | changed_at          |
++-----------+----------------+------------------------+------------+---------------------+
+|         1 | devops         |                   10.5 |      30000 | 2022-07-11 00:08:30 |
+|         2 | bigdata        |                    6.5 |      40000 | 2022-07-11 00:09:13 |
+|         3 | webdevelopment |                    3.5 |      20000 | 2022-07-11 00:08:58 |
+|         4 | datascience    |                    6.0 |      40000 | 2022-07-11 00:08:58 |
++-----------+----------------+------------------------+------------+---------------------+
+4 rows in set (0.00 sec)
+
+DECIMAL(5,3)
+
+TIMESTAMP CURRENT_TIMESTAMP

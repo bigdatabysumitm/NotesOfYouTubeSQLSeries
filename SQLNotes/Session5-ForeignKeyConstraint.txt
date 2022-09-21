@@ -1,0 +1,166 @@
+SQL Session 5:
+
+=================================================
+
+Foreign Key Constraint;
+====================================
+
+Student Table:
+===================
+create table students(
+student_id INT AUTO_INCREMENT,
+student_fname varchar(30) NOT NULL,
+student_lname varchar(30) NOT NULL,
+student_mname varchar(30),
+student_email varchar(30) NOT NULL,
+sudent_phone varchar(15) NOT NULL,
+student_alternate_phone varchar(15),
+enrollment_date TIMESTAMP NOT NULL,
+years_of_exp INT NOT NULL,
+student_company varchar(30),
+batch_date varchar(30) NOT NULL,
+source_of_joining varchar(30) NOT NULL,
+location varchar(30) NOT NULL,
+PRIMARY KEY(student_id),
+UNIQUE KEY(student_email)
+);
+
+
+
+insert into student(student_fname,student_lname,student_email,sudent_phone,years_of_exp,student_company,batch_date,source_of_joining,location) values('rohit','sharma','rohit@gmail.com','9191919191',6,'walmart','05-02-2021','linkedin','bangalore');
+
+insert into students(student_fname,student_lname,student_email,sudent_phone,years_of_exp,student_company,batch_date,source_of_joining,location) values('virat','kohli','virat@gmail.com','9292929292',3,'flipkart','05-02-2021','linkedin','hyderabad');
+
+insert into students(student_fname,student_lname,student_email,sudent_phone,years_of_exp,student_company,batch_date,source_of_joining,location) values('shikar','dhawan','shikar@gmail.com','9393939393',12,'19-02-2021','google','bangalore');
+
+insert into students(student_fname,student_lname,student_email,sudent_phone,years_of_exp,student_company,batch_date,source_of_joining,location) values('rahul','dravid','rahul@gmail.com','9494949494',8,'walmart','19-02-2021','quora','chennai');
+
+insert into students(student_fname,student_lname,student_email,sudent_phone,years_of_exp,student_company,batch_date,source_of_joining,location) values('kapil','dev','kapil@gmail.com','9294919191',15,'microsoft','05-02-2021','friend','pune'),('brain','lara','brain@gmail.com','9394919191',18,'tcs','05-02-2021','youtube','pune'),('carl','hooper','carl@gmail.com','9293519191',20,'wipro','19-02-2021','youtube','pune'),('saurabh','ganguly','saurabh@gmail.com','9291975191',14,'wipro','19-02-2021','google','chennai');
+
+
+
+SELECT Statement;
+
+=====================
+
+select student_id,enrollment_date,student_fname,student_email,years_of_exp,student_company,batch_date,source_of_joining,location from students;
+
+
+Courses Table:
+
+==========================
+
+create table courses(
+course_id INT NOT NULL,
+course_name varchar(30) NOT NULL,
+course_duration_in_months INT NOT NULL,
+course_fee INT NOT NULL,
+PRIMARY KEY(course_id)
+);
+
+
+insert into courses(course_id,course_name,course_duration_in_months,course_fee)
+values(1,'bigdata',6,40000),
+(2,'webdevelopment',3,20000),
+(3,'datascience',6,50000),
+(4,'devops',1,10000);
+
+
+Student Table:
+===================
+create table students(
+student_id INT AUTO_INCREMENT,
+student_fname varchar(30) NOT NULL,
+student_lname varchar(30) NOT NULL,
+student_mname varchar(30),
+student_email varchar(30) NOT NULL,
+sudent_phone varchar(15) NOT NULL,
+student_alternate_phone varchar(15),
+enrollment_date TIMESTAMP NOT NULL,
+selected_course INT NOT NULL DEFAULT 1,
+years_of_exp INT NOT NULL,
+student_company varchar(30),
+batch_date varchar(30) NOT NULL,
+source_of_joining varchar(30) NOT NULL,
+location varchar(30) NOT NULL,
+PRIMARY KEY(student_id),
+UNIQUE KEY(student_email)
+);
+
+
+
+
+insert into students(student_fname,student_lname,student_email,sudent_phone,selected_course,years_of_exp,student_company,batch_date,source_of_joining,location) values('rohit','sharma','rohit@gmail.com','9191919191',3,6,'walmart','05-02-2021','linkedin','bangalore');
+
+insert into students(student_fname,student_lname,student_email,sudent_phone,selected_course,years_of_exp,student_company,batch_date,source_of_joining,location) values('virat','kohli','virat@gmail.com','9292929292',2,'flipkart','05-02-2021','linkedin','hyderabad');
+
+insert into students(student_fname,student_lname,student_email,sudent_phone,selected_course,years_of_exp,student_company,batch_date,source_of_joining,location) values('shikar','dhawan','shikar@gmail.com','9393939393',4,12,'19-02-2021','google','bangalore');
+
+insert into students(student_fname,student_lname,student_email,sudent_phone,years_of_exp,student_company,batch_date,source_of_joining,location) values('rahul','dravid','rahul@gmail.com','9494949494',8,'walmart','19-02-2021','quora','chennai');
+
+insert into students(student_fname,student_lname,student_email,sudent_phone,selected_course,years_of_exp,student_company,batch_date,source_of_joining,location) values('kapil','dev','kapil@gmail.com','9294919191',4,15,'microsoft','05-02-2021','friend','pune'),('brain','lara','brain@gmail.com','9394919191',2,18,'tcs','05-02-2021','youtube','pune'),('carl','hooper','carl@gmail.com','9293519191',1,20,'wipro','19-02-2021','youtube','pune'),('saurabh','ganguly','saurabh@gmail.com','9291975191',3,14,'wipro','19-02-2021','google','chennai');
+
+insert into students(student_fname,student_lname,student_email,sudent_phone,selected_course,years_of_exp,student_company,batch_date,source_of_joining,location) values('jasprit','bhumra','jasprit@gmail.com','9191619191',5,6,'walmart','05-02-2021','linkedin','bangalore');
+
+
+Creating Table with Foreign Key constraint:
+==============================================
+
+
+create table students(
+student_id INT AUTO_INCREMENT,
+student_fname varchar(30) NOT NULL,
+student_lname varchar(30) NOT NULL,
+student_mname varchar(30),
+student_email varchar(30) NOT NULL,
+sudent_phone varchar(15) NOT NULL,
+student_alternate_phone varchar(15),
+enrollment_date TIMESTAMP NOT NULL,
+selected_course INT NOT NULL DEFAULT 1,
+years_of_exp INT NOT NULL,
+student_company varchar(30),
+batch_date varchar(30) NOT NULL,
+source_of_joining varchar(30) NOT NULL,
+location varchar(30) NOT NULL,
+PRIMARY KEY(student_id),
+UNIQUE KEY(student_email),
+FOREIGN KEY(selected_course) REFERENCES courses(course_id)
+);
+
+
+parent - courses
+
+child - students
+
+
+The foreign key constraint is used to prevent actions that would destroy links between two tables.
+
+Fore Key is the field in one table that refers to primary key in other table.
+
+selected_course is foreign key in students table which refers to course_id in courses table.
+
+the table with foreign key is called child table and the key with primary key is called reference table or parent table.
+
+constraint are used to limit the type of data tht can go into table
+
+this ensures the accuracy and reliability of the data is maintained.
+
+if there is any violation then the action is aborted.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
