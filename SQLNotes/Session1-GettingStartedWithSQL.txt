@@ -2,7 +2,7 @@ SQL Session 1:
 
 ==============================================
 
-What is a database ? database?
+What is a database ? database one?
 
 A collection of data and holds this data in form of tables.
 
