@@ -3,7 +3,7 @@ Learn the SQL right way Session 2:
 
 CRUD Operations
 
-create  --- Insert statements
+create  --- Insert statements --- added feature1
 read    --- select statements
 update  ---  update statements
 delete  ---- delete statements
