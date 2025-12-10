@@ -1,4 +1,4 @@
-SQL Session 1:
+SQL Session 1:Vineeth
 
 ==============================================
 
@@ -6,7 +6,7 @@ What is a database ?
 
 A collection of data and holds this data in form of tables.
 
-What is table ?
+What is table 
 
 A entity Holds data in form of rows and columns.
 
